@@ -1,1 +1,3 @@
-module.exports = require('./lib/convert');
+import convert from './lib/convert';
+
+export default convert;

@@ -1,4 +1,5 @@
-const convert = require('../lib/convert');
+import convert from '../lib/convert';
+import {describe, it, expect} from 'vitest';
 
 describe('Test convert method', () => {
 	it('Text', () => {
@@ -49,13 +50,13 @@ describe('Test convert method', () => {
 
 	it('Unordered list', () => {
 		const markdown = '* list\n* list\n* list';
-		const tgMarkdown = '•   list\n•   list\n•   list\n';
+		const tgMarkdown = '• list\n• list\n• list\n';
 		expect(convert(markdown)).toBe(tgMarkdown);
 	});
 
 	it('Ordered list', () => {
 		const markdown = '1. list\n2. list\n3. list';
-		const tgMarkdown = '1\\.  list\n2\\.  list\n3\\.  list\n';
+		const tgMarkdown = '1\\. list\n2\\. list\n3\\. list\n';
 		expect(convert(markdown)).toBe(tgMarkdown);
 	});
 
@@ -231,24 +232,25 @@ describe('Test convert method', () => {
 
 	it('Bold text in lists', () => {
 		const markdown = '- To make text **bold**, surround it with double asterisks (`**`): `**This text is bold.**`';
-		const tgMarkdown = '•   To make text *bold*, surround it with double asterisks \\(`**`\\): `**This text is bold.**`\n';
+		const tgMarkdown =
+			'• To make text *bold*, surround it with double asterisks \\(`**`\\): `**This text is bold.**`\n';
 
 		expect(convert(markdown)).toBe(tgMarkdown);
 	});
 
 	it('Code after list', () => {
 		const markdown = `1. Foo:\n\n\`\`\`\nBar\n\`\`\``;
-		const tgMarkdown = `1\\.  Foo:\n\n\n\`\`\`\nBar\n\`\`\`\n`
+		const tgMarkdown = `1\\. Foo:\n\n\`\`\`\nBar\n\`\`\`\n`;
 
 		expect(convert(markdown)).toBe(tgMarkdown);
-	})
+	});
 
 	it(`Multiple code blocks and lists`, () => {
 		const markdown = `1. Foo:\n\n\`\`\`\nBar\n\`\`\`\n\n2. Baz:\n\n\`\`\`\nQux\n\`\`\``;
-		const tgMarkdown = `1\\.  Foo:\n\n\n\`\`\`\nBar\n\`\`\`\n\n2\\.  Baz:\n\n\n\`\`\`\nQux\n\`\`\`\n`;
+		const tgMarkdown = `1\\. Foo:\n\n\`\`\`\nBar\n\`\`\`\n\n2\\. Baz:\n\n\`\`\`\nQux\n\`\`\`\n`;
 
 		expect(convert(markdown)).toBe(tgMarkdown);
-	})
+	});
 
 	it('should nested codeblocks', () => {
 		const markdown = `
@@ -271,7 +273,7 @@ foo = 'bar'
 `;
 
 		expect(convert(markdown)).toBe(tgMarkdown);
-	})
+	});
 
 	describe('escape unsupported tags', () => {
 		it('should escape blockquote', () => {
@@ -287,7 +289,21 @@ foo = 'bar'
 
 			expect(convert(markdown, 'escape')).toBe(tgMarkdown);
 		});
-	})
+
+		it('should escape table', () => {
+			const markdown = `| a | b | c | d |
+| - | :- | -: | :-: |
+| e | f |
+| g | h | i | j | k |`;
+			const tgMarkdown = `\\| a \\| b  \\|  c \\|  d  \\|   \\|
+\\| \\- \\| :\\- \\| \\-: \\| :\\-: \\| \\- \\|
+\\| e \\| f  \\|    \\|     \\|   \\|
+\\| g \\| h  \\|  i \\|  j  \\| k \\|
+`;
+
+			expect(convert(markdown, 'escape')).toBe(tgMarkdown);
+		});
+	});
 
 	describe('remove unsupported tags', () => {
 		it('should remove blockquote', () => {
@@ -303,5 +319,15 @@ foo = 'bar'
 
 			expect(convert(markdown, 'remove')).toBe(tgMarkdown);
 		});
-	})
+
+		it('should remove table', () => {
+			const markdown = `| a | b | c | d |
+| - | :- | -: | :-: |
+| e | f |
+| g | h | i | j | k |`;
+			const tgMarkdown = '';
+
+			expect(convert(markdown, 'remove')).toBe(tgMarkdown);
+		});
+	});
 });
