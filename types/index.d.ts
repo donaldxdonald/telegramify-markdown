@@ -1,6 +1,6 @@
 type UnsupportedTagsStrategy = 'escape' | 'remove' | 'keep'
 
-declare module 'telegramify-markdown' {
+declare module 'telegramify-markdown-es' {
 
   /**
    * Converts markdown to Telegram's format.
