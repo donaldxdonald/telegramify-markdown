@@ -1,23 +1,28 @@
-# Telegramify-Markdown
+# Telegramify-Markdown-ES
 
-[![Build](https://img.shields.io/github/actions/workflow/status/skoropadas/telegramify-markdown/release.yml?branch=master)](https://github.com/skoropadas/telegramify-markdown/actions)
-[![codecov](https://codecov.io/gh/skoropadas/telegramify-markdown/branch/master/graph/badge.svg?token=LxCmgGNUHl)](https://codecov.io/gh/skoropadas/telegramify-markdown)
-![License](https://img.shields.io/github/license/skoropadas/telegramify-markdown)
+[![Build](https://img.shields.io/github/actions/workflow/status/donaldxdonald/telegramify-markdown-es/release.yml?branch=master)](https://github.com/donaldxdonald/telegramify-markdown-es/actions)
+[![codecov](https://codecov.io/gh/donaldxdonald/telegramify-markdown-es/branch/master/graph/badge.svg?token=LxCmgGNUHl)](https://codecov.io/gh/donaldxdonald/telegramify-markdown-es)
+![License](https://img.shields.io/github/license/donaldxdonald/telegramify-markdown-es)
 
 Telegramify-Markdown is a Markdown
 to [Telegram-specific-markdown](https://core.telegram.org/bots/api#formatting-options) converter, based
 on [Unified](https://github.com/unifiedjs/unified) and [Remark](https://github.com/remarkjs/remark/).
 
+## This fork aims to provide
+
+- Support for ES modules
+- Keep dependencies up-to-date (unified, remark, etc.)
+
 ## Install
 
 ```bash
-npm install telegramify-markdown
+npm install telegramify-markdown-es
 ```
 
 ## Usage
 
 ```js
-const telegramifyMarkdown = require('telegramify-markdown');
+import telegramifyMarkdown from 'telegramify-markdown-es';
 const markdown = `
 # Header
 ## Subheader
@@ -55,7 +60,7 @@ You can also add unsupported tags strategy as a second argument, which can be on
 - `keep` - ignore unsupported tags (default)
 
 ```js
-const telegramifyMarkdown = require('telegramify-markdown');
+import telegramifyMarkdown from 'telegramify-markdown-es';
 const markdown = `
 # Header
 
@@ -75,10 +80,8 @@ telegramifyMarkdown(markdown, 'escape');
 
 telegramifyMarkdown(markdown, 'remove');
 /*
-*Header*
+ *Header*
  */
 ```
-
-sec
 
 [MIT Licence](LICENSE)
