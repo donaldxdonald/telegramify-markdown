@@ -9,5 +9,5 @@ declare module 'telegramify-markdown' {
    */
   function convert(markdown: string, unsupportedTagsStrategy: UnsupportedTagsStrategy): string
 
-  export = convert
+  export default convert
 }
